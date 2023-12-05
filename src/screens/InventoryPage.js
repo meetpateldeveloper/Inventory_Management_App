@@ -9,6 +9,7 @@ import {
   Button,
 } from "react-native";
 import MainMenu from "../components/MainMenu";
+import InventoryList from "../components/InventoryList";
 
 export default function InventoryPage() {
 
@@ -17,15 +18,7 @@ export default function InventoryPage() {
         <View style={styles.container}>
           <MainMenu />
           <Text style={styles.headText}>Inventory List</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
-          <Text>cards here</Text>
+          <InventoryList/>
           <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button1} onPress={() => console.log('Cancel Pressed')}>
             <Text style={styles.text1}>Cancel</Text>
@@ -45,6 +38,7 @@ export default function InventoryPage() {
     
       headText: {
         paddingTop: 10,
+        paddingLeft: 5,
         paddingBottom: 10,
         fontSize: 20,
         fontWeight: 'bold'
