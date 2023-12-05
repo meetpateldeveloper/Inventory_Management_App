@@ -1,26 +1,33 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import LoginPage from "./src/screens/LoginPage";
-import InventoryPage from "./src/screens/InventoryPage";
+import SignupPage from "./src/screens/SignupPage";
+
+const Stack = createStackNavigator();
 import Scanpage from "./src/screens/ScanPage";
 import SearchPage from "./src/screens/SearchPage";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/*<LoginPage />*/}
-      {/*<InventoryPage/>*/}
-      {/*<Scanpage/>*/}
-      <SearchPage/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="LoginPage"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="LoginPage" component={LoginPage} />
+        <Stack.Screen name="SignupPage" component={SignupPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     flex: 1,
-    backgroundColor: "#e5e3e3",
+    backgroundColor: "#e6e6e6",
     alignItems: "center",
     justifyContent: "center",
   },
