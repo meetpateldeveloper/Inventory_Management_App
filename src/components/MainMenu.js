@@ -2,14 +2,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import CustomButton from './CustomButton'; // adjust the path according to your project structure
 
-const MainMenu = () => {
+const MainMenu = ({ activeScreen }) => {
   return (
     <View style={styles.container}>
-      <CustomButton iconName="home" title="Dashboard" onPress={() => {}} />
-      <CustomButton iconName="list" title="Inventory List" onPress={() => {}} />
-      <CustomButton iconName="plus" title="Add Item" onPress={() => {}} />
-      <CustomButton iconName="search" title="Search" onPress={() => {}} />
-      <CustomButton iconName="barcode" title="Scan Barcode" onPress={() => {}} />
+      <CustomButton iconName="home" title="Dashboard" onPress={() => {}} active={activeScreen === 'Dashboard'} />
+      <CustomButton iconName="list" title="Inventory List" onPress={() => {}} active={activeScreen === 'InventoryList'} />
+      <CustomButton iconName="plus" title="Add Item" onPress={() => {}} active={activeScreen === 'AddItem'} />
+      <CustomButton iconName="search" title="Search" onPress={() => {}} active={activeScreen === 'Search'} />
+      <CustomButton iconName="barcode" title="Scan Barcode" onPress={() => {}} active={activeScreen === 'ScanBarcode'} />
     </View>
   );
 };

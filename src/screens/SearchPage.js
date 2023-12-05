@@ -9,24 +9,25 @@ import {
   Button,
 } from "react-native";
 import MainMenu from "../components/MainMenu";
-import InventoryList from "../components/InventoryList";
 import React, { useEffect, useState } from "react";
 
-export default function InventoryPage() {
+export default function SearchPage() {
 
   
 
     return (
         <View style={styles.container}>
-          <MainMenu activeScreen="InventoryList"/>
-          <Text style={styles.headText}>Inventory List</Text>
-          <InventoryList/>
+          <MainMenu activeScreen="Search"/>
+          <Text style={styles.headText}>Search Item</Text>
+          <View style={{ marginTop: 20, alignItems: "center" }}>
+            <TextInput style={styles.searchInput}></TextInput>
+            </View>
           <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button1} onPress={() => console.log('Cancel Pressed')}>
             <Text style={styles.text1}>Cancel</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button2} onPress={() => console.log('Save Pressed')}>
-            <Text style={styles.text2}>Save</Text>
+            <Text style={styles.text2}>Search</Text>
           </TouchableOpacity>
           </View>
         </View>
@@ -39,7 +40,7 @@ export default function InventoryPage() {
       },
     
       headText: {
-        paddingTop: 10,
+        paddingTop: 50,
         paddingLeft: 5,
         paddingBottom: 10,
         fontSize: 20,
@@ -78,6 +79,14 @@ export default function InventoryPage() {
       text2: {
         color: '#FFFFFF',
         textAlign: 'center',
+      },
+      searchInput: {
+        width: "95%",
+        backgroundColor: "#fff",
+        height: 35,
+        borderRadius: 2,
+        fontSize: 16,
+        marginBottom: 20,
       },
     });
     
