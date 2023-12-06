@@ -17,7 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="InventoryPage"
+        initialRouteName="LoginPage"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="LoginPage"      component={LoginPage} />
