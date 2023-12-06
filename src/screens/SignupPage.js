@@ -1,64 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import app from "../../firebase";
 import {
   StyleSheet,
+  Button,
   Text,
   View,
   Image,
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Button } from "selenium-webdriver";
+
+const auth = getAuth(app);
 
 export default function SignupPage() {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [secondPassword, setSecondPassword] = useState("");
+  const [isError, setError] = useState(null);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const PasswordChecker = () => {
+    if (password == "") {
+      return;
+    }
+    if (password == secondPassword) {
+      return <Text style={{ color: "green" }}>Password Matches</Text>;
+    } else {
+      return;
+    }
+  };
 
+  const signUp = async () => {
+    // if (email == "") {
+    //   return <Text>Please Enter Email</Text>;
+    // }
+    // if (password == "") {
+    //   return <Text>Please Enter Password</Text>;
+    // } else {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
+        // Signed up
         const user = userCredential.user;
-        console.log(user);
-        navigation.navigate("LoginPage");
-
         // ...
+        console.log("Signup Successful");
+        navigation.navigate("LoginPage");
       })
       .catch((error) => {
+        console.log("signup failed");
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        setError(errorMessage);
         // ..
       });
+    // }
   };
   return (
     <View style={styles.signupPage}>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.label}>First Name:</Text>
-        <TextInput style={styles.emailInput}></TextInput>
+        <TextInput style={styles.emailInput} value="John"></TextInput>
       </View>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.label}>Last Name:</Text>
-        <TextInput style={styles.emailInput}></TextInput>
+        <TextInput style={styles.emailInput} value="Doe"></TextInput>
       </View>
       <View style={{ marginTop: 20 }}>
-        <Text style={styles.label}>Email:{email}</Text>
+        <Text style={styles.label}>Email:</Text>
         <TextInput
           style={styles.emailInput}
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          autoCapitalize="none"
+          onChangeText={(e) => setEmail(e)}
         />
       </View>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.label}>Password:</Text>
         <TextInput
           style={styles.emailInput}
+          autoCapitalize="none"
           secureTextEntry={true}
           value={password}
           onChangeText={(text) => setPassword(text)}
@@ -66,14 +88,21 @@ export default function SignupPage() {
       </View>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.label}>Re-enter Password:</Text>
-        <TextInput style={styles.emailInput} secureTextEntry={true}></TextInput>
+        <TextInput
+          secureTextEntry={true}
+          autoCapitalize="none"
+          style={styles.emailInput}
+          value={secondPassword}
+          onChangeText={(text) => setSecondPassword(text)}
+        ></TextInput>
       </View>
-      {/* <TouchableOpacity style={{ marginTop: 25 }}>
+      <PasswordChecker />
+      <Text style={{ color: "red" }}>{isError}</Text>
+      <TouchableOpacity style={{ marginTop: 25 }} onPress={signUp}>
         <View style={styles.signInButton}>
           <Text style={{ color: "white" }}>Sign Up</Text>
         </View>
-      </TouchableOpacity> */}
-      <Button type="submit"></Button>
+      </TouchableOpacity>
       <Text>or</Text>
       <View></View>
     </View>
@@ -95,7 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     height: 35,
     borderRadius: 2,
-    fontSize: 16,
+    fontSize: 14,
   },
   signInButton: {
     width: 300,
@@ -107,6 +136,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   label: {
-    fontSize: 16,
+    fontSize: 14,
   },
 });

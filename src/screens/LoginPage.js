@@ -1,9 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from "react-native-google-signin";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -14,51 +9,35 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from "../../firebase";
+
+const auth = getAuth(app);
 
 export default function LoginPage() {
   const [loggedIn, setloggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isError, setError] = useState(null);
 
-  // useEffect(() => {
-  //   GoogleSignin.configure({
-  //     scopes: ["email"], // what API you want to access on behalf of the user, default is email and profile
-  //     webClientId:
-  //       "150607814875-lc6ms65chig8ou51o110r692u8nivche.apps.googleusercontent.com", // client ID of type WEB for your server (needed to verify user ID and offline access)
-  //     offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-  //   });
-  // }, []);
+  const signInUser = async () => {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        console.log("Logged in");
+        navigation.navigate("InventoryPage");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        setError(errorCode);
+      });
+  };
 
-  // const _signIn = async () => {
-  //   try {
-  //     await GoogleSignin.hasPlayServices();
-  //     const { accessToken, idToken } = await GoogleSignin.signIn();
-  //     setloggedIn(true);
-  //   } catch (error) {
-  //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-  //       // user cancelled the login flow
-  //       alert("Cancel");
-  //     } else if (error.code === statusCodes.IN_PROGRESS) {
-  //       alert("Signin in progress");
-  //       // operation (f.e. sign in) is in progress already
-  //     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-  //       alert("PLAY_SERVICES_NOT_AVAILABLE");
-  //       // play services not available or outdated
-  //     } else {
-  //       // some other error happened
-  //     }
-  //   }
-  // };
-
-  // const signOut = async () => {
-  //   try {
-  //     await GoogleSignin.revokeAccess();
-  //     await GoogleSignin.signOut();
-  //     setloggedIn(false);
-  //     setuserInfo([]);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -80,6 +59,8 @@ export default function LoginPage() {
         <TextInput
           style={styles.emailInput}
           placeholder="Email Address"
+          value={email}
+          onChangeText={(e) => setEmail(e)}
         ></TextInput>
       </View>
       <View style={{ marginTop: 10 }}>
@@ -88,12 +69,12 @@ export default function LoginPage() {
           style={styles.emailInput}
           secureTextEntry={true}
           placeholder="Password"
+          value={password}
+          onChangeText={(e) => setPassword(e)}
         ></TextInput>
       </View>
-      <TouchableOpacity
-        style={{ marginTop: 40 }}
-        onPress={() => navigation.navigate("InventoryPage")}
-      >
+      <Text style={{ color: "red" }}>{isError}</Text>
+      <TouchableOpacity style={{ marginTop: 40 }} onPress={signInUser}>
         <View style={styles.signInButton}>
           <Text style={{ color: "white", fontSize: 15 }}>Sign In</Text>
         </View>
@@ -116,15 +97,6 @@ export default function LoginPage() {
           <Text style={styles.label}>Sign Up</Text>
         </TouchableOpacity>
       </View>
-      {/* <Text>or</Text>
-      <View>
-        <GoogleSigninButton
-          style={{ width: 192, height: 48 }}
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={this._signIn}
-        />
-      </View> */}
     </View>
   );
 }
