@@ -90,7 +90,10 @@ export default function LoginPage() {
           placeholder="Password"
         ></TextInput>
       </View>
-      <TouchableOpacity style={{ marginTop: 40 }}>
+      <TouchableOpacity
+        style={{ marginTop: 40 }}
+        onPress={() => navigation.navigate("InventoryPage")}
+      >
         <View style={styles.signInButton}>
           <Text style={{ color: "white", fontSize: 15 }}>Sign In</Text>
         </View>
@@ -149,7 +152,6 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: "#fff",
     height: 37,
-    textDecorationStyle: "none",
     borderRadius: 2,
     fontSize: 16,
   },
