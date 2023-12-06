@@ -10,47 +10,15 @@ import {
 } from "react-native";
 import MainMenu from "../components/MainMenu";
 import InventoryList from "../components/InventoryList";
-import React, { useEffect, useState } from "react";
-import { getAuth, signOut } from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
-
-const auth = getAuth();
 
 export default function InventoryPage() {
-  const [isSignedIn, setSignInStatus] = useState(true);
-  const navigation = useNavigation();
-  const signOutHandle = async () => {
-    if (isSignedIn) {
-      await signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-          console.log("Sign out successful");
-          setSignInStatus(false);
-          navigation.navigate("LoginPage");
-        })
-        .catch((error) => {
-          // An error happened.
-        });
-    }
-  };
+  
 
   return (
     <View style={styles.container}>
+      
       <MainMenu activeScreen="InventoryList" />
-      <TouchableOpacity
-        style={{
-          width: 300,
-          height: 40,
-          backgroundColor: "#458b01",
-          borderRadius: 4,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        onPress={signOutHandle}
-      >
-        <Text>Sign Out</Text>
-      </TouchableOpacity>
+      
       <Text style={styles.headText}>Inventory List</Text>
       <InventoryList />
       <View style={styles.buttonContainer}>
