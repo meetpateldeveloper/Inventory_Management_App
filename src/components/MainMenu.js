@@ -1,15 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import CustomButton from './CustomButton'; // adjust the path according to your project structure
+import { useNavigation } from '@react-navigation/native';
 
-const MainMenu = ({ activeScreen }) => {
+const MainMenu = ({ activeScreen  }) => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <CustomButton iconName="home" title="Dashboard" onPress={() => {}} active={activeScreen === 'Dashboard'} />
-      <CustomButton iconName="list" title="Inventory List" onPress={() => {}} active={activeScreen === 'InventoryList'} />
-      <CustomButton iconName="plus" title="Add Item" onPress={() => {}} active={activeScreen === 'AddItem'} />
-      <CustomButton iconName="search" title="Search" onPress={() => {}} active={activeScreen === 'Search'} />
-      <CustomButton iconName="barcode" title="Scan Barcode" onPress={() => {}} active={activeScreen === 'ScanBarcode'} />
+      <CustomButton iconName="home" title="Dashboard" onPress={() => navigation.navigate('DashboardPage')} active={activeScreen === 'Dashboard'} />
+      <CustomButton iconName="list" title="Inventory List" onPress={() => navigation.navigate('InventoryPage')} active={activeScreen === 'InventoryList'} />
+      <CustomButton iconName="plus" title="Add Item" onPress={() => navigation.navigate('AddItemPage')} active={activeScreen === 'AddItem'} />
+      <CustomButton iconName="search" title="Search" onPress={() => navigation.navigate('SearchPage')} active={activeScreen === 'Search'} />
+      <CustomButton iconName="barcode" title="Scan Barcode" onPress={() => navigation.navigate('Scanpage')} active={activeScreen === 'ScanBarcode'} />
     </View>
   );
 };
