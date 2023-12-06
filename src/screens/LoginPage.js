@@ -17,8 +17,8 @@ const auth = getAuth(app);
 export default function LoginPage() {
   const [loggedIn, setloggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("meet221197@gmail.com");
+  const [password, setPassword] = useState("abcdefgh");
   const [isError, setError] = useState(null);
 
   const signInUser = async () => {
@@ -27,7 +27,7 @@ export default function LoginPage() {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log("Logged in");
+        console.log("Logged in" + user.uid);
         navigation.navigate("InventoryPage");
       })
       .catch((error) => {
