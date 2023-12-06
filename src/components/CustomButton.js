@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const CustomButton = ({ iconName, title, onPress }) => {
+const CustomButton = ({ iconName, title, onPress, active }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Icon name={iconName} size={20} color="#517fa4" />
+    <TouchableOpacity style={[styles.button, active ? styles.activeButton : {}]} onPress={onPress}>
+      <Icon name={iconName} size={20} color="#008000" />
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  activeButton: {
+    backgroundColor: '#FFFFFF', // change this to the color you want for the active state
   },
   buttonText: {
     paddingTop: 5,

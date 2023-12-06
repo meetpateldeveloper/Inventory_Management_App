@@ -6,6 +6,8 @@ import LoginPage from "./src/screens/LoginPage";
 import SignupPage from "./src/screens/SignupPage";
 import InventoryPage from "./src/screens/InventoryPage";
 const Stack = createStackNavigator();
+import Scanpage from "./src/screens/ScanPage";
+import SearchPage from "./src/screens/SearchPage";
 
 export default function App() {
   return (
