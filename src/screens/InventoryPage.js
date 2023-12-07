@@ -12,7 +12,7 @@ import MainMenu from "../components/MainMenu";
 import InventoryList from "../components/InventoryList";
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useIsFocused } from "@react-navigation/native";
 import * as SQLite from "expo-sqlite";
 
 const auth = getAuth();
@@ -20,24 +20,25 @@ const auth = getAuth();
 const db = SQLite.openDatabase("newinventory.db");
 
 export default function InventoryPage({ route }) {
+
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
+
   const { userEmail, setUserEmail } = route.params;
   const [isSignedIn, setSignInStatus] = useState(true);
   const [userData, setUserData] = useState([]);
-  const navigation = useNavigation();
-  const signOutHandle = async () => {
-    if (isSignedIn) {
-      await signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-          console.log("Sign out successful");
-          setSignInStatus(false);
-          navigation.navigate("LoginPage");
-        })
-        .catch((error) => {
-          // An error happened.
-        });
+ 
+
+  useEffect(() => {
+    if (isFocused) {
+      // e.g., refetch data, update state, etc.
+      console.log("email: "+userEmail);
+      fetchDataFromSQLite();
+      console.log('Screen is focused, performing reload logic');
     }
-  };
+    
+  }, [isFocused]);
+
   const fetchDataFromSQLite = () => {
     console.log(userEmail);
     db.transaction((tx) => {
@@ -56,9 +57,24 @@ export default function InventoryPage({ route }) {
       );
     });
   };
-  useEffect(() => {
-    fetchDataFromSQLite();
-  }, []);
+
+
+  const signOutHandle = async () => {
+    if (isSignedIn) {
+      await signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+          console.log("Sign out successful");
+          setSignInStatus(false);
+          navigation.navigate("LoginPage");
+        })
+        .catch((error) => {
+          // An error happened.
+        });
+    }
+  };
+
+ 
 
   return (
     <View style={styles.container}>
