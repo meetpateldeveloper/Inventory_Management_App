@@ -73,20 +73,6 @@ export default function InventoryPage() {
           </View>
         ))}
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button1}
-          onPress={() => console.log("Cancel Pressed")}
-        >
-          <Text style={styles.text1}>Cancel</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button2}
-          onPress={() => console.log("Save Pressed")}
-        >
-          <Text style={styles.text2}>Save</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }

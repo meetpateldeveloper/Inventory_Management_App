@@ -1,4 +1,4 @@
-/*import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -10,26 +10,20 @@ import {
 } from "react-native";
 import MainMenu from "../components/MainMenu";
 import React, { useEffect, useState } from "react";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function SearchPage() {
-
-  
+export default function UserProfilePage() {
 
     return (
         <View style={styles.container}>
-          <MainMenu activeScreen="Search"/>
-          <Text style={styles.headText}>Search Item</Text>
-          <View style={{ marginTop: 20, alignItems: "center" }}>
-            <TextInput style={styles.searchInput}></TextInput>
+        
+          
+            <View style={{ marginTop: 70, alignItems: "center" }}>
+                <Icon name="user-circle" size={200} color="#008000" />
+                <Text style={styles.headText}>First Name:</Text>
+                <Text style={styles.headText}>Last Name:</Text>
+                <Text style={styles.headText}>Email ID:</Text>
             </View>
-          <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button1} onPress={() => console.log('Cancel Pressed')}>
-            <Text style={styles.text1}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button2} onPress={() => console.log('Save Pressed')}>
-            <Text style={styles.text2}>Search</Text>
-          </TouchableOpacity>
-          </View>
         </View>
       );
     }
@@ -89,4 +83,3 @@ export default function SearchPage() {
         marginBottom: 20,
       },
     });
-    */

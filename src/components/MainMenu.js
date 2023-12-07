@@ -33,7 +33,7 @@ const MainMenu = ({ activeScreen  }) => {
   return (
     <View>
       <View style={styles.main}>
-      <TouchableOpacity style={styles.button} onPress={()=>{}}>
+      <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('UserProfilePage')}}>
       <Icon name="user-circle" size={37} color="#008000" />
       </TouchableOpacity>
       <TouchableOpacity
@@ -55,10 +55,10 @@ const MainMenu = ({ activeScreen  }) => {
       </TouchableOpacity>
       </View>
     <View style={styles.container}>
-      <CustomButton iconName="home" title="Dashboard" onPress={() => navigation.navigate('DashboardPage')} active={activeScreen === 'Dashboard'} />
+      {/*<CustomButton iconName="home" title="Dashboard" onPress={() => navigation.navigate('DashboardPage')} active={activeScreen === 'Dashboard'} />*/}
       <CustomButton iconName="list" title="Inventory List" onPress={() => navigation.navigate('InventoryPage')} active={activeScreen === 'InventoryList'} />
       <CustomButton iconName="plus" title="Add Item" onPress={() => navigation.navigate('AddItemPage')} active={activeScreen === 'AddItem'} />
-      <CustomButton iconName="search" title="Search" onPress={() => navigation.navigate('SearchPage')} active={activeScreen === 'Search'} />
+      {/*<CustomButton iconName="search" title="Search" onPress={() => navigation.navigate('SearchPage')} active={activeScreen === 'Search'} />*/}
       <CustomButton iconName="barcode" title="Scan Barcode" onPress={() => navigation.navigate('Scanpage')} active={activeScreen === 'ScanBarcode'} />
     </View>
     </View>

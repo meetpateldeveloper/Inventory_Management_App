@@ -6,10 +6,12 @@ import LoginPage from "./src/screens/LoginPage";
 import SignupPage from "./src/screens/SignupPage";
 import InventoryPage from "./src/screens/InventoryPage";
 import Scanpage from "./src/screens/ScanPage";
-import SearchPage from "./src/screens/SearchPage";
+/*import SearchPage from "./src/screens/SearchPage";*/
 import AddItemPage from "./src/screens/AddItemPage";
-import DashboardPage from "./src/screens/DashboardPage";
+/*import DashboardPage from "./src/screens/DashboardPage";*/
 import MainMenu from "./src/components/MainMenu";
+import UserProfilePage from "./src/screens/UserProfilePage";
+
 
 const Stack = createStackNavigator();
 
@@ -24,9 +26,10 @@ export default function App() {
         <Stack.Screen name="SignupPage"     component={SignupPage} />
         <Stack.Screen name="InventoryPage"  component={InventoryPage} />
         <Stack.Screen name="Scanpage"       component={Scanpage} />
-        <Stack.Screen name="SearchPage"     component={SearchPage} />
+        {/*<Stack.Screen name="SearchPage"     component={SearchPage} />*/}
         <Stack.Screen name="AddItemPage"    component={AddItemPage} />
-        <Stack.Screen name="DashboardPage"  component={DashboardPage} />
+        {/*<Stack.Screen name="DashboardPage"  component={DashboardPage} />*/}
+        <Stack.Screen name="UserProfilePage"    component={UserProfilePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
