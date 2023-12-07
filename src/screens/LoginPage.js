@@ -29,7 +29,7 @@ export default function LoginPage({ route }) {
         const user = userCredential.user;
         // ...
         console.log("Logged in " + user.email);
-        setUserEmail(emailId);
+        setUserEmail(user.email);
         navigation.navigate("InventoryPage");
       })
       .catch((error) => {

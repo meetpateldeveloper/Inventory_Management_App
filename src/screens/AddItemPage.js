@@ -16,7 +16,8 @@ import * as SQLite from "expo-sqlite";
 
 const db = SQLite.openDatabase("newinventory.db");
 
-export default function AddItemPage() {
+export default function AddItemPage({ route }) {
+  const { userEmail, setUserEmail } = route.params;
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState();
   const [barcodeId, setBarcodeId] = useState("123456");
@@ -25,7 +26,7 @@ export default function AddItemPage() {
   const [category, setCategory] = useState("furniture");
   const [price, setPrice] = useState("200");
   const [imageLocation, setImageLocation] = useState();
-  const [emailf, setEmailf] = useState("meet221197@gmail.com");
+  const [emailf, setEmailf] = useState("");
   const imageSelectorHandle = (imagePath) => {
     setSelectedImage(imagePath);
   };
@@ -34,7 +35,7 @@ export default function AddItemPage() {
     db.transaction((tx) => {
       tx.executeSql(
         "INSERT INTO items (barcodeid,title,quantity,category,price,email) values (?,?,?,?,?,?)",
-        [barcodeId, title, quantity, category, price, emailf],
+        [barcodeId, title, quantity, category, price, userEmail],
         (txObj, resultset) => {
           // console.log(resultset);
           setEmailf("");
