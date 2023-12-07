@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+/*import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import MainMenu from "../components/MainMenu";
 import InventoryList from "../components/InventoryList";
 import React, { useEffect, useState } from "react";
 
-export default function DashboardPage() {
+export default function UserProfilePage() {
 
   return (
     <View style={styles.container}>
@@ -84,3 +84,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+*/
