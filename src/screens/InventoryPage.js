@@ -60,20 +60,7 @@ export default function InventoryPage() {
   return (
     <View style={styles.container}>
       <MainMenu activeScreen="InventoryList" />
-      <TouchableOpacity
-        style={{
-          width: 300,
-          height: 40,
-          backgroundColor: "#458b01",
-          borderRadius: 4,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        onPress={signOutHandle}
-      >
-        <Text>Sign Out</Text>
-      </TouchableOpacity>
+
       <Text style={styles.headText}>Inventory List</Text>
       {/* <InventoryList /> */}
       <View>
