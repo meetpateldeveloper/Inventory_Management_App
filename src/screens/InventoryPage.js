@@ -43,7 +43,9 @@ export default function InventoryPage({ route }) {
     db.transaction((tx) => {
       tx.executeSql(
         "SELECT * FROM items WHERE email=?", // Replace 'users' with your table name
-        [userEmail],
+        // [userEmail],
+        // ["meet221197@gmail.com"],
+        ["meetbiochemist@gmail.com"],
         (txObj, { rows: { _array } }) => {
           // On success, set the fetched data to state
           setUserData(_array);

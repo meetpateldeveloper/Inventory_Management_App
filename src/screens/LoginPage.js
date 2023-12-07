@@ -18,7 +18,7 @@ export default function LoginPage({ route }) {
   const { userEmail, setUserEmail } = route.params;
   const [loggedIn, setloggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
-  const [emailId, setEmailId] = useState("");
+  const [emailId, setEmailId] = useState("meet221197@gmail.com");
   const [password, setPassword] = useState("abcdefg");
   const [isError, setError] = useState(null);
 
