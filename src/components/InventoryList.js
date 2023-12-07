@@ -9,47 +9,56 @@ const InventoryList = () => {
   useEffect(() => {
     setDataArray([
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Read",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Read",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Readasfsfsdfsdfsdfsfsf",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Readadadsadad",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Read",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Read",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Read",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Read",
         quantity: "3",
       },
       {
-        imageURL: "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
+        imageURL:
+          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
         title: "Red Read",
         quantity: "9",
       },
@@ -57,7 +66,7 @@ const InventoryList = () => {
   }, []);
 
   const renderItem = ({ item }) => {
-      return <ItemCard data={item} />;
+    return <ItemCard data={item} />;
   };
 
   return (

@@ -13,11 +13,15 @@ import InventoryList from "../components/InventoryList";
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import * as SQLite from "expo-sqlite";
 
 const auth = getAuth();
 
+const db = SQLite.openDatabase("newinventory.db");
+
 export default function InventoryPage() {
   const [isSignedIn, setSignInStatus] = useState(true);
+  const [userData, setUserData] = useState([]);
   const navigation = useNavigation();
   const signOutHandle = async () => {
     if (isSignedIn) {
@@ -33,6 +37,25 @@ export default function InventoryPage() {
         });
     }
   };
+  const fetchDataFromSQLite = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * FROM users", // Replace 'users' with your table name
+        [],
+        (txObj, { rows: { _array } }) => {
+          // On success, set the fetched data to state
+          setUserData(_array);
+        },
+        (txObj, error) => {
+          // Handle error while fetching data
+          console.error("Error fetching data:", error);
+        }
+      );
+    });
+  };
+  useEffect(() => {
+    fetchDataFromSQLite();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -52,7 +75,17 @@ export default function InventoryPage() {
         <Text>Sign Out</Text>
       </TouchableOpacity>
       <Text style={styles.headText}>Inventory List</Text>
-      <InventoryList />
+      {/* <InventoryList /> */}
+      <View>
+        <Text>Data from SQLite:</Text>
+        {userData.map((user) => (
+          <View key={user.id}>
+            <Text>User ID: {user.userid}</Text>
+            <Text>Name: {user.firstName}</Text>
+            <Text>Name: {user.lastName}</Text>
+          </View>
+        ))}
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button1}

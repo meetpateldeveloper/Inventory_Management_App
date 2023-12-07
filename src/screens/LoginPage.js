@@ -17,8 +17,8 @@ const auth = getAuth(app);
 export default function LoginPage() {
   const [loggedIn, setloggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
-  const [email, setEmail] = useState("meet221197@gmail.com");
-  const [password, setPassword] = useState("abcdefgh");
+  const [email, setEmail] = useState("meetbiochemist@gmail.com");
+  const [password, setPassword] = useState("abcdefg");
   const [isError, setError] = useState(null);
 
   const signInUser = async () => {
@@ -27,7 +27,7 @@ export default function LoginPage() {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log("Logged in" + user.uid);
+        console.log("Logged in " + user.email);
         navigation.navigate("InventoryPage");
       })
       .catch((error) => {
@@ -140,3 +140,48 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 });
+
+const openNewTable = async () => {
+  const db = SQLite.openDatabase("myDatabase.db");
+  db.transaction((tx) => {
+    tx.executeSql(
+      "CREATE TABLE IF NOT EXISTS userInfo (userid INTEGER PRIMARY KEY, firstName TEXT,lastName TEXT)"
+    );
+  });
+  const info = await FileSystem.getInfoAsync(db._db._name);
+  console.log("openNewTable ran");
+};
+
+const createNewTable = async () => {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "CREATE TABLE IF NOT EXISTS userInfo (userid INTEGER PRIMARY KEY, firstName TEXT,lastName TEXT)"
+    );
+  });
+};
+
+const readTable = async () => {
+  const db = SQLite.openDatabase("myDatabase.db");
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT * FROM userInfo",
+      [],
+      (_, { rows }) => console.log(rows._array),
+      (error) => console.log(error)
+    );
+  });
+};
+
+const createNewUser = async () => {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "INSERT INTO userInfo (userid,firstName,lastName) VALUES (?)",
+      "('abcdefg','Meet','Patel')",
+      [],
+      (_, { rows }) => console.log(rows._array),
+      (error) => console.log(error)
+    );
+  });
+  const info = await FileSystem.getInfoAsync(db._db._name);
+  console.log(info);
+};

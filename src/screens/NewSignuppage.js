@@ -11,21 +11,20 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import * as SQLite from "expo-sqlite";
+// import * as SQLite from "expo-sqlite";
 
 const auth = getAuth(app);
-const db = SQLite.openDatabase("newinventory.db");
+const navigation = useNavigation();
+// const db = SQLite.openDatabase("inventory.db");
 
 export default function SignupPage() {
-  const navigation = useNavigation();
-  const [userId, setUserId] = useState("null");
-  const [firstName, setFirstName] = useState("meet");
-  const [lastName, setLastName] = useState("patel");
-  const [email, setEmail] = useState("meetbiochemist@gmail.com");
-  const [password, setPassword] = useState("abcdefg");
-  const [secondPassword, setSecondPassword] = useState("abcdefg");
+  const [userId, setUserId] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [secondPassword, setSecondPassword] = useState("");
   const [isError, setError] = useState(null);
-  const [userData, setUserData] = useState([]);
 
   const PasswordChecker = () => {
     if (password == "") {
@@ -39,36 +38,26 @@ export default function SignupPage() {
   };
 
   const signUp = async () => {
-    // if (email == "") {
-    //   return <Text>Please Enter Email</Text>;
-    // }
-    // if (password == "") {
-    //   return <Text>Please Enter Password</Text>;
-    // } else {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        // setUserId(user.stsTokenManager.uid);
-        console.log("Hello");
-        console.log(user.email);
-        db.transaction((tx) => {
-          tx.executeSql(
-            "CREATE TABLE IF NOT EXISTS users (userid TEXT PRIMARY KEY, firstName TEXT,lastName TEXT)"
-          );
-          tx.executeSql(
-            "INSERT INTO users (userid,firstName,lastName) values (?,?,?)",
-            [email, firstName, lastName],
-            (txObj, resultset) => {
-              // console.log(resultset);
-              setFirstName("");
-              setLastName("");
-            },
-            (txObj, error) => console.log(error)
-          );
-        });
-        // ...
+        // setUserId(user.email);
+        console.log("hello");
+        // console.log(user.email);
         console.log("Signup Successful");
+        // db.transaction((tx) => {
+        //   tx.executeSql(
+        //     "INSERT INTO users (userid,firstName,lastName) values (?,?,?)",
+        //     [userId, firstName, lastName],
+        //     (txObj, resultset) => {
+        //       console.log(resultset);
+        //       setFirstName("");
+        //       setLastName("");
+        //     },
+        //     (txObj, error) => console.log(error)
+        //   );
+        // });
         // navigation.navigate("LoginPage");
       })
       .catch((error) => {
@@ -76,42 +65,17 @@ export default function SignupPage() {
         const errorCode = error.code;
         const errorMessage = error.message;
         setError(errorMessage);
-        // ..
       });
-    // }
   };
 
-  const deleteUser = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "DELETE FROM users WHERE userid=?",
-        [email],
-        (txObj, resultset) => {
-          console.log(resultset);
-          setFirstName("");
-          setLastName("");
-        },
-        (txObj, error) => console.log(error)
-      );
-    });
-  };
+  // useEffect(() => {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       "CREATE TABLE IF NOT EXISTS users (userid INTEGER PRIMARY KEY, firstName TEXT,lastName TEXT)"
+  //     );
+  //   }, []);
+  // });
 
-  const fetchDataFromSQLite = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT * FROM users", // Replace 'users' with your table name
-        [],
-        (txObj, { rows: { _array } }) => {
-          // On success, set the fetched data to state
-          setUserData(_array);
-        },
-        (txObj, error) => {
-          // Handle error while fetching data
-          console.error("Error fetching data:", error);
-        }
-      );
-    });
-  };
   return (
     <View style={styles.signupPage}>
       <View style={{ marginTop: 20 }}>
@@ -167,11 +131,7 @@ export default function SignupPage() {
         </View>
       </TouchableOpacity>
       <Text>or</Text>
-      <TouchableOpacity style={{ marginTop: 25 }} onPress={deleteUser}>
-        <View style={styles.signInButton}>
-          <Text style={{ color: "white" }}>Delete user</Text>
-        </View>
-      </TouchableOpacity>
+      <View></View>
     </View>
   );
 }
