@@ -57,6 +57,9 @@ export default function SignupPage() {
             "CREATE TABLE IF NOT EXISTS users (userid TEXT PRIMARY KEY, firstName TEXT,lastName TEXT)"
           );
           tx.executeSql(
+            "CREATE TABLE IF NOT EXISTS items (barcodeid TEXT PRIMARY KEY, title TEXT NOT NULL, quantity INT NOT NULL, category TEXT, price INT, email TEXT, FOREIGN KEY (email) REFERENCES users(email))"
+          );
+          tx.executeSql(
             "INSERT INTO users (userid,firstName,lastName) values (?,?,?)",
             [email, firstName, lastName],
             (txObj, resultset) => {

@@ -19,7 +19,8 @@ const auth = getAuth();
 
 const db = SQLite.openDatabase("newinventory.db");
 
-export default function InventoryPage() {
+export default function InventoryPage({ route }) {
+  const { userEmail, setUserEmail } = route.params;
   const [isSignedIn, setSignInStatus] = useState(true);
   const [userData, setUserData] = useState([]);
   const navigation = useNavigation();
@@ -38,10 +39,11 @@ export default function InventoryPage() {
     }
   };
   const fetchDataFromSQLite = () => {
+    console.log(userEmail);
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM users", // Replace 'users' with your table name
-        [],
+        "SELECT * FROM items WHERE email=?", // Replace 'users' with your table name
+        [userEmail],
         (txObj, { rows: { _array } }) => {
           // On success, set the fetched data to state
           setUserData(_array);
@@ -67,9 +69,12 @@ export default function InventoryPage() {
         <Text>Data from SQLite:</Text>
         {userData.map((user) => (
           <View key={user.id}>
-            <Text>User ID: {user.userid}</Text>
-            <Text>Name: {user.firstName}</Text>
-            <Text>Name: {user.lastName}</Text>
+            <Text>barcodeid ID: {user.barcodeid}</Text>
+            <Text>title: {user.title}</Text>
+            <Text>quantity: {user.quantity}</Text>
+            <Text>category {user.category}</Text>
+            <Text>price: {user.price}</Text>
+            <Text>email: {user.email}</Text>
           </View>
         ))}
       </View>

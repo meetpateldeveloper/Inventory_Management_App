@@ -14,20 +14,22 @@ import app from "../../firebase";
 
 const auth = getAuth(app);
 
-export default function LoginPage() {
+export default function LoginPage({ route }) {
+  const { userEmail, setUserEmail } = route.params;
   const [loggedIn, setloggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
-  const [email, setEmail] = useState("meetbiochemist@gmail.com");
+  const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("abcdefg");
   const [isError, setError] = useState(null);
 
   const signInUser = async () => {
-    await signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, emailId, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         // ...
         console.log("Logged in " + user.email);
+        setUserEmail(emailId);
         navigation.navigate("InventoryPage");
       })
       .catch((error) => {
@@ -59,8 +61,8 @@ export default function LoginPage() {
         <TextInput
           style={styles.emailInput}
           placeholder="Email Address"
-          value={email}
-          onChangeText={(e) => setEmail(e)}
+          value={emailId}
+          onChangeText={(e) => setEmailId(e)}
         ></TextInput>
       </View>
       <View style={{ marginTop: 10 }}>
