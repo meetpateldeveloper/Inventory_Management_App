@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,32 +15,52 @@ import app from "../../firebase";
 const auth = getAuth(app);
 
 export default function LoginPage({ route }) {
-  const { userEmail, setUserEmail } = route.params;
-  const [loggedIn, setloggedIn] = useState(false);
-  const [userInfo, setuserInfo] = useState([]);
-  const [emailId, setEmailId] = useState("meet221197@gmail.com");
+  const { setUserEmail } = route.params;
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("abcdefg");
   const [isError, setError] = useState(null);
+  const navigation = useNavigation();
 
   const signInUser = async () => {
-    await signInWithEmailAndPassword(auth, emailId, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-        console.log("Logged in " + user.email);
-        setUserEmail(user.email);
-        navigation.navigate("InventoryPage");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        setError(errorCode);
-      });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, emailId, password);
+      const user = userCredential.user;
+      console.log("Logged in " + user.email);
+      setUserEmail(user.email);
+      setLoggedIn(true); // Trigger navigation in useEffect
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      setError(errorCode);
+    }
   };
 
-  const navigation = useNavigation();
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+      // Clear relevant state variables
+      setLoggedIn(false);
+      setEmailId("");
+      setPassword("");
+      setError(null);
+      setUserEmail(""); // Clear user email or any other user-related state
+      // Navigate back to the login page
+      navigation.navigate("LoginPage");
+    } catch (error) {
+      console.log("Error during logout:", error);
+    }
+  };
+
+  // Use useEffect to navigate after the component has rendered
+  useEffect(() => {
+    if (loggedIn) {
+      navigation.navigate("InventoryPage");
+      setLoggedIn(false);
+    }
+  }, [loggedIn]);
+ 
   return (
     <View style={styles.container}>
       <View style={styles.logoWrapper}>
