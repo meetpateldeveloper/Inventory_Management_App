@@ -13,6 +13,7 @@ import MainMenu from "../components/MainMenu";
 import React, { useState } from "react";
 import ImageSelector from "../components/imageSelector";
 import * as SQLite from "expo-sqlite";
+import * as FileSystem from 'expo-file-system';
 
 const db = SQLite.openDatabase("inventoryneww.db");
 
@@ -27,21 +28,36 @@ export default function AddItemPage({ route }) {
   const [price, setPrice] = useState("200");
   const [imageLocation, setImageLocation] = useState("./icon.png");
   const [emailf, setEmailf] = useState("");
-  const imageSelectorHandle = (imagePath) => {
-    setSelectedImage(imagePath);
+
+  const imageSelectorHandle = async (imagePath) => {
+    try {
+      const fileName = emailf+barcodeId+'.jpg'; // Generate a unique file name
+      const newPath = FileSystem.documentDirectory + fileName;
+      console.log("New fiel path : "+newPath);
+  
+      await FileSystem.copyAsync({
+        from: imagePath,
+        to: newPath,
+      });
+  
+      setSelectedImage(newPath);
+    } catch (error) {
+      console.error('Error saving image:', error);
+    }
   };
+  
 
   const addItemHandler = () => {
     db.transaction((tx) => {
       tx.executeSql(
         "INSERT INTO items (barcodeid,title,category,price,imageURL) values (?,?,?,?,?)",
-        [barcodeId, title, category, price, imageLocation],
+        [barcodeId, title, category, price, selectedImage],
         (txObj, resultset) => {
           console.log(resultset);
           setPrice("");
           setCategory("");
           setTitle("");
-          setImageLocation("");
+          setSelectedImage("");
         },
         (txObj, error) => console.log(error)
       );

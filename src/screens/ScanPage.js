@@ -29,7 +29,7 @@ export default function ScanPage({ route }) {
     console.log(data);
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM items WHERE email=? AND barcodeid=?",
+        "SELECT * FROM items INNER JOIN inventory ON inventory.barcodeid = items.barcodeid WHERE inventory.email=? and items.barcodeid=?",
         [userEmail, data], // Pass parameters as an array
         (txObj, { rows: { _array } }) => {
           // On success, set the fetched data to state
@@ -60,7 +60,9 @@ export default function ScanPage({ route }) {
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        <View style={styles.buttonContainer}>
+          <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        </View>
       )}
     </View>
   );
@@ -70,5 +72,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
   },
 });
