@@ -79,7 +79,8 @@ export default function AddItemPage({ route }) {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <MainMenu activeScreen="AddItem" />
-      <Text style={styles.headText}>Add New Item</Text>
+      <View style={styles.contentContainer}>
+        <Text style={styles.headText}>Add New Item</Text>
       <View style={{ marginTop: 5, paddingLeft: 20 }}>
         <Text style={styles.label}>Title:</Text>
         <TextInput
@@ -135,70 +136,70 @@ export default function AddItemPage({ route }) {
           <Text style={styles.text2}>Save</Text>
         </TouchableOpacity>
       </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-  },
-  aa: {
-    display: "flex",
     flex: 1,
-    backgroundColor: "#e6e6e6",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#F5F5F5", // Light gray background
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   headText: {
-    paddingTop: 10,
-    paddingLeft: 5,
-    paddingBottom: 5,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
+    marginBottom: 10,
+    color: "#008000", // Dark green text color
   },
   emailInput: {
     marginTop: 5,
-    width: 300,
-    padding: 5,
-    backgroundColor: "#fff",
-    height: 35,
-    borderRadius: 2,
-    fontSize: 14,
+    marginBottom: 10,
+    width: "100%", // Full width input
+    padding: 10,
+    backgroundColor: "#FFFFFF", // White input background
+    borderRadius: 8,
+    fontSize: 16,
   },
   label: {
-    fontSize: 14,
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#333", // Dark gray label color
   },
-
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    margin: 8,
+    justifyContent: "space-around",
+    marginVertical: 20,
   },
   button1: {
     backgroundColor: "#FFFFFF",
-    padding: 10,
-    borderRadius: 4,
-    width: "40%",
+    padding: 15,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#008000",
-    margin: 5,
+    width: "45%",
     alignItems: "center",
   },
   text1: {
     color: "#008000",
-    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   button2: {
     backgroundColor: "#008000",
-    padding: 10,
-    borderRadius: 4,
-    width: "40%",
-    margin: 5,
+    padding: 15,
+    borderRadius: 8,
+    width: "45%",
     alignItems: "center",
   },
   text2: {
     color: "#FFFFFF",
-    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
