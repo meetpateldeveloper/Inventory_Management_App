@@ -33,11 +33,12 @@ export default function InventoryPage({ route }) {
       console.log("email: " + userEmail);
       fetchDataFromSQLite();
       console.log("Screen is focused, performing reload logic");
+      
     }
   }, [isFocused]);
 
   const fetchDataFromSQLite = () => {
-    console.log(userEmail);
+    console.log("in db"+userEmail);
     db.transaction((tx) => {
       tx.executeSql(
         "SELECT * FROM items WHERE email=?", // Replace 'users' with your table name
@@ -45,6 +46,7 @@ export default function InventoryPage({ route }) {
         [userEmail],
         (txObj, { rows: { _array } }) => {
           // On success, set the fetched data to state
+          console.log("in db data"+_array);
           setUserData(_array);
         },
         (txObj, error) => {

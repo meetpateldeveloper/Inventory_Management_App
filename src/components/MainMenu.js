@@ -37,9 +37,7 @@ const MainMenu = ({ activeScreen, userEmail }) => {
       );
     });
   };
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
+  useEffect(() => {}, []);
 
   const signOutHandle = async () => {
     if (isSignedIn) {
