@@ -6,11 +6,12 @@ import LoginPage from "./src/screens/LoginPage";
 import SignupPage from "./src/screens/SignupPage";
 import InventoryPage from "./src/screens/InventoryPage";
 import Scanpage from "./src/screens/ScanPage";
-import SearchPage from "./src/screens/SearchPage";
+//import SearchPage from "./src/screens/SearchPage";
 import AddItemPage from "./src/screens/AddItemPage";
 // import DashboardPage from "./src/screens/DashboardPage";
 import MainMenu from "./src/components/MainMenu";
 import UserProfilePage from "./src/screens/UserProfilePage";
+import ItemDetail from "./src/screens/IteamDetail";
 
 import { useState } from "react";
 
@@ -50,6 +51,14 @@ export default function App() {
           component={AddItemPage}
           initialParams={{ userEmail, setUserEmail }}
         />
+
+
+        <Stack.Screen
+          name="ItemDetail"
+          component={ItemDetail}
+          
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
