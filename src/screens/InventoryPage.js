@@ -12,7 +12,7 @@ import MainMenu from "../components/MainMenu";
 import InventoryList from "../components/InventoryList";
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigation,useIsFocused } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import * as SQLite from "expo-sqlite";
 
 const auth = getAuth();
@@ -20,23 +20,20 @@ const auth = getAuth();
 const db = SQLite.openDatabase("newinventory.db");
 
 export default function InventoryPage({ route }) {
-
   const isFocused = useIsFocused();
   const navigation = useNavigation();
 
   const { userEmail, setUserEmail } = route.params;
   const [isSignedIn, setSignInStatus] = useState(true);
   const [userData, setUserData] = useState([]);
- 
 
   useEffect(() => {
     if (isFocused) {
       // e.g., refetch data, update state, etc.
-      console.log("email: "+userEmail);
+      console.log("email: " + userEmail);
       fetchDataFromSQLite();
-      console.log('Screen is focused, performing reload logic');
+      console.log("Screen is focused, performing reload logic");
     }
-    
   }, [isFocused]);
 
   const fetchDataFromSQLite = () => {
@@ -58,7 +55,6 @@ export default function InventoryPage({ route }) {
     });
   };
 
-
   const signOutHandle = async () => {
     if (isSignedIn) {
       await signOut(auth)
@@ -74,27 +70,11 @@ export default function InventoryPage({ route }) {
     }
   };
 
- 
-
   return (
     <View style={styles.container}>
-      <MainMenu activeScreen="InventoryList" />
-
+      <MainMenu activeScreen="InventoryList" userEmail={userEmail} />
       <Text style={styles.headText}>Inventory List</Text>
-      {/* <InventoryList /> */}
-      <View>
-        <Text>Data from SQLite:</Text>
-        {userData.map((user) => (
-          <View key={user.id}>
-            <Text>barcodeid ID: {user.barcodeid}</Text>
-            <Text>title: {user.title}</Text>
-            <Text>quantity: {user.quantity}</Text>
-            <Text>category {user.category}</Text>
-            <Text>price: {user.price}</Text>
-            <Text>email: {user.email}</Text>
-          </View>
-        ))}
-      </View>
+      <InventoryList userEmail={userEmail} setUserEmail={setUserEmail} />
     </View>
   );
 }

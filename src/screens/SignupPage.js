@@ -64,8 +64,8 @@ export default function SignupPage() {
             [email, firstName, lastName],
             (txObj, resultset) => {
               // console.log(resultset);
-              setFirstName("");
-              setLastName("");
+              // setFirstName("");
+              // setLastName("");
             },
             (txObj, error) => console.log(error)
           );

@@ -40,6 +40,7 @@ export default function AddItemPage({ route }) {
           // console.log(resultset);
           setEmailf("");
           setPrice("");
+          setBarcodeId("");
           setCategory("");
           setquantity("");
           setTitle("");
@@ -52,6 +53,7 @@ export default function AddItemPage({ route }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
       <MainMenu activeScreen="AddItem" />
       <Text style={styles.headText}>Add New Item</Text>
       <View style={{ marginTop: 5, paddingLeft: 20 }}>
@@ -115,7 +117,14 @@ export default function AddItemPage({ route }) {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 10,
+  },
+  aa: {
+    display: "flex",
     flex: 1,
+    backgroundColor: "#e6e6e6",
+    alignItems: "center",
+    justifyContent: "center",
   },
   headText: {
     paddingTop: 10,
@@ -131,13 +140,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     height: 35,
     borderRadius: 2,
-    fontSize: 16,
+    fontSize: 14,
   },
   label: {
-    marginTop: 5,
-    paddingLeft: 20,
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 14,
   },
 
   buttonContainer: {
@@ -149,7 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     padding: 10,
     borderRadius: 4,
-    width: "50%",
+    width: "40%",
     borderWidth: 1,
     borderColor: "#008000",
     margin: 5,
@@ -163,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#008000",
     padding: 10,
     borderRadius: 4,
-    width: "50%",
+    width: "40%",
     margin: 5,
     alignItems: "center",
   },
