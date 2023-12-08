@@ -17,28 +17,9 @@ const MainMenu = ({ activeScreen, userEmail }) => {
   const [lName, setlName] = useState("Shaji");
 
   const navigation = useNavigation();
-  const fetchUserInfo = async () => {
-    console.log(userEmail);
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT firstName,lastName FROM users WHERE userid=?", // Replace 'users' with your table name
-        ["meet221197@gmail.com"],
-        (txObj, { rows: { _array } }) => {
-          // On success, set the fetched data to state
-
-          console.log("First name is:");
-          setfName(_array);
-          // console.log(fName[0].lastName);
-        },
-        (txObj, error) => {
-          // Handle error while fetching data
-          console.error("Error fetching data:", error);
-        }
-      );
-    });
-  };
+  
   useEffect(() => {
-    fetchUserInfo();
+    
   }, []);
 
   const signOutHandle = async () => {
