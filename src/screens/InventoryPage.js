@@ -17,7 +17,7 @@ import * as SQLite from "expo-sqlite";
 
 const auth = getAuth();
 
-const db = SQLite.openDatabase("newinventory.db");
+const db = SQLite.openDatabase("inventoryneww.db");
 
 export default function InventoryPage({ route }) {
   const isFocused = useIsFocused();
@@ -31,31 +31,29 @@ export default function InventoryPage({ route }) {
     if (isFocused) {
       // e.g., refetch data, update state, etc.
       console.log("email: " + userEmail);
-      fetchDataFromSQLite();
+      // fetchDataFromSQLite();
       console.log("Screen is focused, performing reload logic");
-      
     }
   }, [isFocused]);
 
-  const fetchDataFromSQLite = () => {
-    console.log("in db"+userEmail);
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT * FROM items WHERE email=?", // Replace 'users' with your table name
-
-        [userEmail],
-        (txObj, { rows: { _array } }) => {
-          // On success, set the fetched data to state
-          console.log("in db data"+_array);
-          setUserData(_array);
-        },
-        (txObj, error) => {
-          // Handle error while fetching data
-          console.error("Error fetching data:", error);
-        }
-      );
-    });
-  };
+  // const fetchDataFromSQLite = () => {
+  //   console.log("in db" + userEmail);
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       "SELECT * FROM items INNER JOIN inventory ON inventory.barcodeid = items.barcodeid WHERE inventory.email=?", // Replace 'users' with your table name
+  //       [userEmail],
+  //       (txObj, { rows: { _array } }) => {
+  //         // On success, set the fetched data to state
+  //         console.log("in db data" + _array[0].barcodeid);
+  //         setUserData(_array);
+  //       },
+  //       (txObj, error) => {
+  //         // Handle error while fetching data
+  //         console.error("Error fetching data:", error);
+  //       }
+  //     );
+  //   });
+  // };
 
   const signOutHandle = async () => {
     if (isSignedIn) {

@@ -8,7 +8,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("newinventory.db");
+const db = SQLite.openDatabase("inventoryneww.db");
 const auth = getAuth();
 
 const MainMenu = ({ activeScreen, userEmail }) => {

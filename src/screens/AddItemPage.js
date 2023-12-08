@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import ImageSelector from "../components/imageSelector";
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("newinventory.db");
+const db = SQLite.openDatabase("inventoryneww.db");
 
 export default function AddItemPage({ route }) {
   const { userEmail, setUserEmail } = route.params;
@@ -25,7 +25,7 @@ export default function AddItemPage({ route }) {
   const [quantity, setquantity] = useState("20");
   const [category, setCategory] = useState("furniture");
   const [price, setPrice] = useState("200");
-  const [imageLocation, setImageLocation] = useState();
+  const [imageLocation, setImageLocation] = useState("./icon.png");
   const [emailf, setEmailf] = useState("");
   const imageSelectorHandle = (imagePath) => {
     setSelectedImage(imagePath);
@@ -34,17 +34,25 @@ export default function AddItemPage({ route }) {
   const addItemHandler = () => {
     db.transaction((tx) => {
       tx.executeSql(
-        "INSERT INTO items (barcodeid,title,quantity,category,price,email) values (?,?,?,?,?,?)",
-        [barcodeId, title, quantity, category, price, userEmail],
+        "INSERT INTO items (barcodeid,title,category,price,imageURL) values (?,?,?,?,?)",
+        [barcodeId, title, category, price, imageLocation],
         (txObj, resultset) => {
-          // console.log(resultset);
-          setEmailf("");
+          console.log(resultset);
           setPrice("");
-          setBarcodeId("");
           setCategory("");
-          setquantity("");
           setTitle("");
           setImageLocation("");
+        },
+        (txObj, error) => console.log(error)
+      );
+      tx.executeSql(
+        "INSERT INTO inventory (barcodeid,quantity,email) values (?,?,?)",
+        [barcodeId, quantity, userEmail],
+        (txObj, resultset) => {
+          console.log(resultset);
+          setEmailf("");
+          setquantity("");
+          setBarcodeId("");
         },
         (txObj, error) => console.log(error)
       );

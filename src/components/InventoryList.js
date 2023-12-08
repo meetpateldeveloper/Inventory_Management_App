@@ -4,7 +4,7 @@ import ItemCard from "./ItemCard";
 import * as SQLite from "expo-sqlite";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const db = SQLite.openDatabase("newinventory.db");
+const db = SQLite.openDatabase("inventoryneww.db");
 const InventoryList = ({ userEmail, setUserEmail }) => {
   const [dataArray, setDataArray] = useState([]);
   const isFocused = useIsFocused();
@@ -16,13 +16,13 @@ const InventoryList = ({ userEmail, setUserEmail }) => {
     console.log(userEmail);
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM items WHERE email=?", // Replace 'users' with your table name
+        "SELECT * FROM items INNER JOIN inventory ON inventory.barcodeid = items.barcodeid WHERE inventory.email=?", // Replace 'users' with your table name
         // "DROP TABLE users",
         [userEmail],
         (txObj, { rows: { _array } }) => {
           // On success, set the fetched data to state
           setDataArray(_array);
-          console.log("inventory list *******************")
+          console.log("inventory list *******************");
         },
         (txObj, error) => {
           // Handle error while fetching data
@@ -37,7 +37,6 @@ const InventoryList = ({ userEmail, setUserEmail }) => {
       console.log("email: " + userEmail);
       fetchDataFromSQLite();
       console.log("Screen is focused, performing reload logic");
-      
     }
   }, [isFocused]);
 

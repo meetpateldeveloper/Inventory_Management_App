@@ -14,7 +14,7 @@ import {
 import * as SQLite from "expo-sqlite";
 
 const auth = getAuth(app);
-const db = SQLite.openDatabase("newinventory.db");
+const db = SQLite.openDatabase("inventoryneww.db");
 
 export default function SignupPage() {
   const navigation = useNavigation();
@@ -50,20 +50,48 @@ export default function SignupPage() {
         // Signed up
         const user = userCredential.user;
         // setUserId(user.stsTokenManager.uid);
-        console.log("Hello");
-        console.log(user.email);
         db.transaction((tx) => {
           tx.executeSql(
-            "CREATE TABLE IF NOT EXISTS users (userid TEXT PRIMARY KEY, firstName TEXT,lastName TEXT)"
+            "CREATE TABLE IF NOT EXISTS users (userid TEXT PRIMARY KEY, firstName TEXT,lastName TEXT)",
+            [],
+            (txObj, resultSet) => {
+              // Success callback
+              console.log("users table created successfully");
+            },
+            (txObj, error) => {
+              // Error callback
+              console.log("Error creating users table:", error);
+            }
           );
           tx.executeSql(
-            "CREATE TABLE IF NOT EXISTS items (barcodeid TEXT PRIMARY KEY, title TEXT NOT NULL, quantity INT NOT NULL, category TEXT, price INT, email TEXT, FOREIGN KEY (email) REFERENCES users(email))"
+            "CREATE TABLE IF NOT EXISTS items (barcodeid TEXT PRIMARY KEY, title TEXT NOT NULL, category TEXT, price INT,imageURL TEXT, email TEXT, FOREIGN KEY (email) REFERENCES users(userid))",
+            [],
+            (txObj, resultSet) => {
+              // Success callback
+              console.log("items table created successfully");
+            },
+            (txObj, error) => {
+              // Error callback
+              console.log("Error creating items table:", error);
+            }
+          );
+          tx.executeSql(
+            "CREATE TABLE IF NOT EXISTS inventory (inventory_id INTEGER PRIMARY KEY AUTOINCREMENT, barcodeid TEXT NOT NULL, email TEXT NOT NULL, quantity INT NOT NULL)",
+            [],
+            (txObj, resultSet) => {
+              // Success callback
+              console.log("Inventory table created successfully");
+            },
+            (txObj, error) => {
+              // Error callback
+              console.log("Error creating inventory table:", error);
+            }
           );
           tx.executeSql(
             "INSERT INTO users (userid,firstName,lastName) values (?,?,?)",
             [email, firstName, lastName],
             (txObj, resultset) => {
-              // console.log(resultset);
+              console.log(resultset);
               // setFirstName("");
               // setLastName("");
             },
@@ -72,7 +100,7 @@ export default function SignupPage() {
         });
         // ...
         console.log("Signup Successful");
-        // navigation.navigate("LoginPage");
+        navigation.navigate("LoginPage");
       })
       .catch((error) => {
         console.log("signup failed");
