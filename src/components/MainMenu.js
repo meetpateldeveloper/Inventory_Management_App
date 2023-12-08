@@ -28,7 +28,7 @@ const MainMenu = ({ activeScreen, userEmail }) => {
 
           console.log("First name is:");
           setfName(_array);
-          // console.log(fName[0].lastName);
+          console.log(fName[0].lastName);
         },
         (txObj, error) => {
           // Handle error while fetching data
@@ -60,9 +60,9 @@ const MainMenu = ({ activeScreen, userEmail }) => {
     <View>
       <View style={styles.main}>
         {/* <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('UserProfilePage')}}> */}
-        {/* <Text style={{ fontSize: 10 }}>
-          Signed in as: {fName[0].firstName} {fName[0].lastName}
-        </Text> */}
+        <Text style={{ fontSize: 10 }}>
+          {/* Signed in as: {fName[0].firstName} {fName[0].lastName} */}
+        </Text>
         <Icon name="user-circle" size={37} color="#008000" />
         {/* </TouchableOpacity> */}
         <TouchableOpacity
