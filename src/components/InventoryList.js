@@ -1,73 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { Text, View, StyleSheet, FlatList } from "react-native";
 import ItemCard from "./ItemCard";
+import * as SQLite from "expo-sqlite";
 
-const InventoryList = () => {
+const db = SQLite.openDatabase("newinventory.db");
+const InventoryList = ({ userEmail, setUserEmail }) => {
   const [dataArray, setDataArray] = useState([]);
-
-  // Use an array of objects for the dataArray state
-  useEffect(() => {
-    setDataArray([
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Read",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Read",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Readasfsfsdfsdfsdfsfsf",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Readadadsadad",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Read",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Read",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Read",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Read",
-        quantity: "3",
-      },
-      {
-        imageURL:
-          "https://farm2.staticflickr.com/1916/31543269748_10f0bf9524_b.jpg",
-        title: "Red Read",
-        quantity: "9",
-      },
-    ]);
-  }, []);
 
   const renderItem = ({ item }) => {
     return <ItemCard data={item} />;
   };
+  const fetchDataFromSQLite = () => {
+    console.log(userEmail);
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * FROM items WHERE email=?", // Replace 'users' with your table name
+        // "DROP TABLE users",
+        [userEmail],
+        (txObj, { rows: { _array } }) => {
+          // On success, set the fetched data to state
+          setDataArray(_array);
+        },
+        (txObj, error) => {
+          // Handle error while fetching data
+          console.error("Error fetching data:", error);
+        }
+      );
+    });
+  };
+  useEffect(() => {
+    fetchDataFromSQLite();
+  }, []);
 
   return (
     <View style={styles.CardListWrapper}>
@@ -85,7 +48,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     marginBottom: 1,
-    height: "65%",
+    height: "73%",
   },
 });
 

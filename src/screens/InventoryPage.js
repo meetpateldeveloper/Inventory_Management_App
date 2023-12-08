@@ -38,47 +38,12 @@ export default function InventoryPage({ route }) {
         });
     }
   };
-  const fetchDataFromSQLite = () => {
-    console.log(userEmail);
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT * FROM items WHERE email=?", // Replace 'users' with your table name
-
-        [userEmail],
-        (txObj, { rows: { _array } }) => {
-          // On success, set the fetched data to state
-          setUserData(_array);
-        },
-        (txObj, error) => {
-          // Handle error while fetching data
-          console.error("Error fetching data:", error);
-        }
-      );
-    });
-  };
-  useEffect(() => {
-    fetchDataFromSQLite();
-  }, []);
 
   return (
     <View style={styles.container}>
-      <MainMenu activeScreen="InventoryList" />
-
+      <MainMenu activeScreen="InventoryList" userEmail={userEmail} />
       <Text style={styles.headText}>Inventory List</Text>
-      {/* <InventoryList /> */}
-      <View>
-        <Text>Data from SQLite:</Text>
-        {userData.map((user) => (
-          <View key={user.id}>
-            <Text>barcodeid ID: {user.barcodeid}</Text>
-            <Text>title: {user.title}</Text>
-            <Text>quantity: {user.quantity}</Text>
-            <Text>category {user.category}</Text>
-            <Text>price: {user.price}</Text>
-            <Text>email: {user.email}</Text>
-          </View>
-        ))}
-      </View>
+      <InventoryList userEmail={userEmail} setUserEmail={setUserEmail} />
     </View>
   );
 }
