@@ -13,7 +13,7 @@ import MainMenu from "../components/MainMenu";
 import React, { useState } from "react";
 import ImageSelector from "../components/imageSelector";
 import * as SQLite from "expo-sqlite";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system";
 
 const db = SQLite.openDatabase("inventoryneww.db");
 
@@ -31,21 +31,20 @@ export default function AddItemPage({ route }) {
 
   const imageSelectorHandle = async (imagePath) => {
     try {
-      const fileName = emailf+barcodeId+'.jpg'; // Generate a unique file name
+      const fileName = emailf + barcodeId + ".jpg"; // Generate a unique file name
       const newPath = FileSystem.documentDirectory + fileName;
-      console.log("New fiel path : "+newPath);
-  
+      console.log("New fiel path : " + newPath);
+
       await FileSystem.copyAsync({
         from: imagePath,
         to: newPath,
       });
-  
+
       setSelectedImage(newPath);
     } catch (error) {
-      console.error('Error saving image:', error);
+      console.error("Error saving image:", error);
     }
   };
-  
 
   const addItemHandler = () => {
     db.transaction((tx) => {
@@ -81,61 +80,61 @@ export default function AddItemPage({ route }) {
       <MainMenu activeScreen="AddItem" />
       <View style={styles.contentContainer}>
         <Text style={styles.headText}>Add New Item</Text>
-      <View style={{ marginTop: 5, paddingLeft: 20 }}>
-        <Text style={styles.label}>Title:</Text>
-        <TextInput
-          style={styles.emailInput}
-          value={title}
-          onChangeText={(e) => setTitle(e)}
-        ></TextInput>
-      </View>
-      <View style={{ marginTop: 5, paddingLeft: 20 }}>
-        <Text style={styles.label}>Quantity:</Text>
-        <TextInput
-          style={styles.emailInput}
-          value={quantity}
-          onChangeText={(e) => setquantity(e)}
-        ></TextInput>
-      </View>
-      <View style={{ marginTop: 5, paddingLeft: 20 }}>
-        <Text style={styles.label}>Barcode:</Text>
-        <TextInput
-          style={styles.emailInput}
-          value={barcodeId}
-          onChangeText={(e) => setBarcodeId(e)}
-        ></TextInput>
-      </View>
-      <View style={{ marginTop: 5, paddingLeft: 20 }}>
-        <Text style={styles.label}>Category:</Text>
-        <TextInput
-          style={styles.emailInput}
-          value={category}
-          onChangeText={(e) => setCategory(e)}
-        ></TextInput>
-      </View>
-      <View style={{ marginTop: 5, paddingLeft: 20 }}>
-        <Text style={styles.label}>Price:</Text>
-        <TextInput
-          style={styles.emailInput}
-          value={price}
-          onChangeText={(e) => setPrice(e)}
-        ></TextInput>
-      </View>
-      <View style={{ marginTop: 5, paddingLeft: 20 }}>
-        <Text style={styles.label}>Image:</Text>
-        <ImageSelector onImageSelected={imageSelectorHandle} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button1}
-          onPress={() => navigation.navigate("DashboardPage")}
-        >
-          <Text style={styles.text1}>Cancel</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={addItemHandler}>
-          <Text style={styles.text2}>Save</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={{ marginTop: 5, paddingLeft: 20 }}>
+          <Text style={styles.label}>Title:</Text>
+          <TextInput
+            style={styles.emailInput}
+            value={title}
+            onChangeText={(e) => setTitle(e)}
+          ></TextInput>
+        </View>
+        <View style={{ marginTop: 5, paddingLeft: 20 }}>
+          <Text style={styles.label}>Quantity:</Text>
+          <TextInput
+            style={styles.emailInput}
+            value={quantity}
+            onChangeText={(e) => setquantity(e)}
+          ></TextInput>
+        </View>
+        <View style={{ marginTop: 5, paddingLeft: 20 }}>
+          <Text style={styles.label}>Barcode:</Text>
+          <TextInput
+            style={styles.emailInput}
+            value={barcodeId}
+            onChangeText={(e) => setBarcodeId(e)}
+          ></TextInput>
+        </View>
+        <View style={{ marginTop: 5, paddingLeft: 20 }}>
+          <Text style={styles.label}>Category:</Text>
+          <TextInput
+            style={styles.emailInput}
+            value={category}
+            onChangeText={(e) => setCategory(e)}
+          ></TextInput>
+        </View>
+        <View style={{ marginTop: 5, paddingLeft: 20 }}>
+          <Text style={styles.label}>Price:</Text>
+          <TextInput
+            style={styles.emailInput}
+            value={price}
+            onChangeText={(e) => setPrice(e)}
+          ></TextInput>
+        </View>
+        <View style={{ marginTop: 5, paddingLeft: 20 }}>
+          <Text style={styles.label}>Image:</Text>
+          <ImageSelector onImageSelected={imageSelectorHandle} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button1}
+            onPress={() => navigation.navigate("DashboardPage")}
+          >
+            <Text style={styles.text1}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button2} onPress={addItemHandler}>
+            <Text style={styles.text2}>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 10,
   },
   headText: {
@@ -159,12 +158,12 @@ const styles = StyleSheet.create({
   },
   emailInput: {
     marginTop: 5,
-    marginBottom: 10,
-    width: "100%", // Full width input
-    padding: 10,
-    backgroundColor: "#FFFFFF", // White input background
-    borderRadius: 8,
-    fontSize: 16,
+    width: 300,
+    padding: 5,
+    backgroundColor: "#fff",
+    height: 35,
+    borderRadius: 2,
+    fontSize: 14,
   },
   label: {
     fontSize: 16,
@@ -178,8 +177,8 @@ const styles = StyleSheet.create({
   },
   button1: {
     backgroundColor: "#FFFFFF",
-    padding: 15,
-    borderRadius: 8,
+    padding: 10,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: "#008000",
     width: "45%",
@@ -192,8 +191,8 @@ const styles = StyleSheet.create({
   },
   button2: {
     backgroundColor: "#008000",
-    padding: 15,
-    borderRadius: 8,
+    padding: 10,
+    borderRadius: 4,
     width: "45%",
     alignItems: "center",
   },
